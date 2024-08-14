@@ -16,6 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         );
     }
+    document.getElementById("answer-box").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                checkAnswer();
+            }
+        }
+
+    )
 
     runGame("addition");
 
@@ -31,10 +38,14 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 
 function runGame(gameType) {
+
+    document.getElementById("answer-box").value = "";
+    document.getElementById("answer-box").focus();
+
     // generate two random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
-     
+
     if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
 
@@ -44,9 +55,7 @@ function runGame(gameType) {
 
     } else if (gameType === "subtract") {
         displaySubtractQuestion(num1, num2);
-    }
-    
-    else {
+    } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
     }
@@ -78,24 +87,22 @@ function checkAnswer() {
  * directly from the dom and returns the correct answer
  */
 function calculateCorrectAnswer() {
-        let operand1 = parseInt(document.getElementById('operand1').innerText);
-        let operand2 = parseInt(document.getElementById('operand2').innerText);
-        let operator = document.getElementById('operator').innerText;
+    let operand1 = parseInt(document.getElementById('operand1').innerText);
+    let operand2 = parseInt(document.getElementById('operand2').innerText);
+    let operator = document.getElementById('operator').innerText;
 
-        if (operator === "+") {
-            return [operand1 + operand2, "addition"];
+    if (operator === "+") {
+        return [operand1 + operand2, "addition"];
 
-        } else if (operator === "x") {
-            return [operand1 * operand2, "multiply"];
+    } else if (operator === "x") {
+        return [operand1 * operand2, "multiply"];
 
-        } else if (operator === "-") {
-            return [operand1 - operand2, "subtract"];
-        }
-        
-        else {
-            alert(`Unimplemented operator ${operator}`);
-            throw `Unimplemented operator ${operator}. Aborting!`;
-        } 
+    } else if (operator === "-") {
+        return [operand1 - operand2, "subtract"];
+    } else {
+        alert(`Unimplemented operator ${operator}`);
+        throw `Unimplemented operator ${operator}. Aborting!`;
+    }
 
 }
 /**
